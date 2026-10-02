@@ -1,0 +1,42 @@
+﻿@model MSUFootballBooking.Models.BookingSummaryModel
+
+@{
+    ViewData["Title"] = "ผลการจองสำเร็จ";
+}
+
+<div class="container mt-5" style="max-width: 550px;">
+    <div class="card shadow-lg border-0 text-center rounded-4">
+        <div class="card-header bg-success text-white py-4 rounded-top-4">
+            <h3 class="mb-0 fw-bold">🎉 การจองสนามสำเร็จ!</h3>
+        </div>
+        <div class="card-body p-4 text-start">
+            <ul class="list-group list-group-flush mb-4 fs-5">
+                <li class="list-group-item d-flex justify-content-between py-3">
+                    <span class="fw-bold">อีเมลผู้จอง:</span>
+                    <span>@Model.StudentEmail</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between py-3">
+                    <span class="fw-bold">สนามที่เลือก:</span>
+                    <span class="badge bg-primary fs-6 align-self-center">@Model.FieldName</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between py-3">
+                    <span class="fw-bold">วันที่:</span>
+                    <span>@Model.BookingDate.ToString("dd/MM/yyyy")</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between py-3">
+                    <span class="fw-bold">รอบเวลา (1 ชม.):</span>
+                    <span class="text-success fw-bold">@Model.TimeSlot</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between py-3 text-muted fs-6">
+                    <span>วันที่ทำรายการ:</span>
+                    <span>@Model.CreatedAt.ToString("dd/MM/yyyy HH:mm:ss")</span>
+                </li>
+            </ul>
+
+            <div class="d-grid gap-2">
+                <a asp-action="Index" class="btn btn-primary btn-lg fw-bold">จองสนามเพิ่มอีกรายการ</a>
+                <a asp-action="Logout" class="btn btn-outline-danger">ออกจากระบบ</a>
+            </div>
+        </div>
+    </div>
+</div>

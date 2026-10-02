@@ -1,0 +1,72 @@
+﻿@model MSUFootballBooking.Models.BookingViewModel
+@{
+    ViewData["Title"] = "ใบคอนเฟิร์มการจองสนาม";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ใบคอนเฟิร์มการจอง - MSU Football</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style> 
+        body { font-family: 'Prompt', sans-serif; }
+        @@media print { .no-print { display: none; } }
+    </style>
+</head>
+<body class="bg-slate-900 text-white min-h-screen flex items-center justify-center p-4">
+    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 max-w-lg w-full shadow-2xl relative overflow-hidden">
+        
+        <!-- แถบด้านบน -->
+        <div class="bg-amber-500 text-slate-900 text-center font-bold py-2 px-4 rounded-t-lg -mx-8 -mt-8 mb-6">
+            ✓ ยืนยันการจองสำเร็จ
+        </div>
+
+        <div class="text-center mb-6">
+            <h2 class="text-xl font-bold text-amber-400">มหาวิทยาลัยมหาสารคาม</h2>
+            <p class="text-slate-400 text-sm">ใบคอนเฟิร์มการเข้าใช้งานสนามฟุตบอล</p>
+        </div>
+
+        <!-- รายละเอียดตั๋ว -->
+        <div class="space-y-4 bg-slate-900/60 p-5 rounded-xl border border-slate-700 mb-6">
+            <div class="flex justify-between items-center border-b border-slate-700 pb-3">
+                <span class="text-slate-400 text-sm">รหัสการจอง:</span>
+                <span class="font-mono font-bold text-lg text-amber-400">@Model.BookingCode</span>
+            </div>
+
+            <div class="flex justify-between items-center border-b border-slate-700 pb-3">
+                <span class="text-slate-400 text-sm">ผู้จอง (อีเมลนิสิต):</span>
+                <span class="font-medium text-slate-200">@Model.StudentEmail</span>
+            </div>
+
+            <div class="flex justify-between items-center border-b border-slate-700 pb-3">
+                <span class="text-slate-400 text-sm">สนามที่เลือก:</span>
+                <span class="font-bold text-emerald-400">@Model.FieldName</span>
+            </div>
+
+            <div class="flex justify-between items-center border-b border-slate-700 pb-3">
+                <span class="text-slate-400 text-sm">วันที่ใช้งาน:</span>
+                <span class="font-medium text-slate-200">@Model.BookingDate.ToString("dd/MM/yyyy")</span>
+            </div>
+
+            <div class="flex justify-between items-center">
+                <span class="text-slate-400 text-sm">รอบเวลา (1 ชม.):</span>
+                <span class="font-bold text-amber-300">@Model.TimeSlot น.</span>
+            </div>
+        </div>
+
+        <!-- ปุ่มกดการทำงาน -->
+        <div class="space-y-3 no-print">
+            <button onclick="window.print()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-900 font-bold py-3 rounded-xl transition">
+                🖨️ พิมพ์ใบคอนเฟิร์ม
+            </button>
+            <a asp-action="SelectField" class="block text-center w-full bg-slate-700 hover:bg-slate-600 text-slate-200 py-3 rounded-xl transition">
+                กลับสู่หน้าจองสนาม
+            </a>
+        </div>
+    </div>
+</body>
+</html>

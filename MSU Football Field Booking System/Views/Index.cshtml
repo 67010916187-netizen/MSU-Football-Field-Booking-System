@@ -1,0 +1,81 @@
+﻿@model MSUFootballBooking.Models.FieldBookingViewModel
+
+@{
+    ViewData["Title"] = "เลือกสนาม วัน และเวลาที่ต้องการจอง";
+    var timeSlots = ViewBag.TimeSlots as List<string>;
+}
+
+<div class="container mt-4" style="max-width: 700px;">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <span class="badge bg-secondary p-2 fs-6">👤 นิสิต: @Model.StudentEmail</span>
+        <a asp-action="Logout" class="btn btn-outline-danger btn-sm">ออกจากระบบ</a>
+    </div>
+
+    <div class="card shadow-sm border-0 rounded-3">
+        <div class="card-header bg-primary text-white py-3">
+            <h4 class="mb-0 text-center fw-bold">⚽ แบบฟอร์มการจองสนามฟุตบอล มมส.</h4>
+        </div>
+        <div class="card-body p-4">
+            <form asp-action="Index" method="post">
+
+                <!-- หัวข้อที่ 1: เลือกสนามฟุตบอล -->
+                <div class="mb-4">
+                    <label class="form-label fw-bold text-dark fs-5">1. เลือกสนามฟุตบอล</label>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <input type="radio" class="btn-check" name="FieldName" id="fieldBlue" value="สนามฟ้า" autocomplete="off" @(Model.FieldName == "สนามฟ้า" ? "checked" : "")>
+                            <label class="btn btn-outline-primary w-100 p-3 h-100 d-flex flex-column align-items-center justify-content-center" for="fieldBlue">
+                                <span class="fs-2">🟦</span>
+                                <span class="fw-bold mt-2">สนามฟ้า</span>
+                            </label>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="radio" class="btn-check" name="FieldName" id="fieldRed" value="สนามแดง" autocomplete="off" @(Model.FieldName == "สนามแดง" ? "checked" : "")>
+                            <label class="btn btn-outline-danger w-100 p-3 h-100 d-flex flex-column align-items-center justify-content-center" for="fieldRed">
+                                <span class="fs-2">🟥</span>
+                                <span class="fw-bold mt-2">สนามแดง</span>
+                            </label>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="radio" class="btn-check" name="FieldName" id="fieldSmall" value="สนามเล็ก" autocomplete="off" @(Model.FieldName == "สนามเล็ก" ? "checked" : "")>
+                            <label class="btn btn-outline-success w-100 p-3 h-100 d-flex flex-column align-items-center justify-content-center" for="fieldSmall">
+                                <span class="fs-2">🟩</span>
+                                <span class="fw-bold mt-2">สนามเล็ก</span>
+                            </label>
+                        </div>
+                    </div>
+                    <span asp-validation-for="FieldName" class="text-danger small d-block mt-1"></span>
+                </div>
+
+                <hr />
+
+                <!-- หัวข้อที่ 2: เลือกวัน -->
+                <div class="mb-4">
+                    <label asp-for="BookingDate" class="form-label fw-bold text-dark fs-5">2. เลือกวันที่เล่น</label>
+                    <input asp-for="BookingDate" type="date" class="form-control form-control-lg" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                    <span asp-validation-for="BookingDate" class="text-danger small"></span>
+                </div>
+
+                <hr />
+
+                <!-- หัวข้อที่ 3: เลือกเวลา -->
+                <div class="mb-4">
+                    <label asp-for="TimeSlot" class="form-label fw-bold text-dark fs-5">3. เลือกเวลา (กำหนดเวลาเล่น 1 ชั่วโมง)</label>
+                    <select asp-for="TimeSlot" class="form-select form-select-lg">
+                        <option value="">-- เลือกรอบเวลา (06.00 - 22.00 น.) --</option>
+                        @if (timeSlots != null)
+                        {
+                            foreach (var slot in timeSlots)
+                            {
+                                <option value="@slot">@slot</option>
+                            }
+                        }
+                    </select>
+                    <span asp-validation-for="TimeSlot" class="text-danger small"></span>
+                </div>
+
+                <button type="submit" class="btn btn-success btn-lg w-100 mt-3 fw-bold">ยืนยันการจองสนาม</button>
+            </form>
+        </div>
+    </div>
+</div>
